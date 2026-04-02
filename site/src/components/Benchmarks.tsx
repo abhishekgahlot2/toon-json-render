@@ -1,7 +1,7 @@
 import { Card, CardBody, CardHeader, Chip } from "@heroui/react";
 import {
-  AreaChart,
-  Area,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -103,7 +103,7 @@ export default function Benchmarks() {
           ))}
         </div>
 
-        {/* Area Chart */}
+        {/* Bar Chart */}
         <Card className="mb-6 border border-white/5">
           <CardHeader className="flex-col items-start gap-1 px-6 pb-0 pt-5">
             <div className="flex w-full items-center justify-between">
@@ -128,24 +128,10 @@ export default function Benchmarks() {
           </CardHeader>
           <CardBody className="px-2 pb-4 pt-4">
             <ResponsiveContainer width="100%" height={360}>
-              <AreaChart
+              <BarChart
                 data={data}
                 margin={{ top: 10, right: 30, left: 10, bottom: 0 }}
               >
-                <defs>
-                  <linearGradient id="gradJSON" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={COLORS.JSON} stopOpacity={0.3} />
-                    <stop offset="95%" stopColor={COLORS.JSON} stopOpacity={0.02} />
-                  </linearGradient>
-                  <linearGradient id="gradTOON" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={COLORS.TOON} stopOpacity={0.3} />
-                    <stop offset="95%" stopColor={COLORS.TOON} stopOpacity={0.02} />
-                  </linearGradient>
-                  <linearGradient id="gradOpenUI" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={COLORS.OpenUI} stopOpacity={0.3} />
-                    <stop offset="95%" stopColor={COLORS.OpenUI} stopOpacity={0.02} />
-                  </linearGradient>
-                </defs>
                 <CartesianGrid
                   strokeDasharray="3 3"
                   stroke="rgba(255,255,255,0.06)"
@@ -173,49 +159,22 @@ export default function Benchmarks() {
                     strokeDasharray: "4 4",
                   }}
                 />
-                <Area
-                  type="monotone"
+                <Bar
                   dataKey="JSON"
-                  stroke={COLORS.JSON}
-                  strokeWidth={2}
-                  fill="url(#gradJSON)"
-                  dot={false}
-                  activeDot={{
-                    r: 5,
-                    fill: COLORS.JSON,
-                    stroke: "#18181b",
-                    strokeWidth: 2,
-                  }}
+                  fill={COLORS.JSON}
+                  radius={[4, 4, 0, 0]}
                 />
-                <Area
-                  type="monotone"
-                  dataKey="OpenUI"
-                  stroke={COLORS.OpenUI}
-                  strokeWidth={2}
-                  fill="url(#gradOpenUI)"
-                  dot={false}
-                  activeDot={{
-                    r: 5,
-                    fill: COLORS.OpenUI,
-                    stroke: "#18181b",
-                    strokeWidth: 2,
-                  }}
-                />
-                <Area
-                  type="monotone"
+                <Bar
                   dataKey="TOON"
-                  stroke={COLORS.TOON}
-                  strokeWidth={2}
-                  fill="url(#gradTOON)"
-                  dot={false}
-                  activeDot={{
-                    r: 5,
-                    fill: COLORS.TOON,
-                    stroke: "#18181b",
-                    strokeWidth: 2,
-                  }}
+                  fill={COLORS.TOON}
+                  radius={[4, 4, 0, 0]}
                 />
-              </AreaChart>
+                <Bar
+                  dataKey="OpenUI"
+                  fill={COLORS.OpenUI}
+                  radius={[4, 4, 0, 0]}
+                />
+              </BarChart>
             </ResponsiveContainer>
           </CardBody>
         </Card>
