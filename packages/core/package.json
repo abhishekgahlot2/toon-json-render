@@ -1,0 +1,39 @@
+{
+  "name": "@toon-json-render/core",
+  "version": "0.1.0",
+  "description": "TOON format adapter for json-render: prompt generation, stream compiler, and decoder",
+  "author": "abhishekgahlot2",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abhishekgahlot2/toon-json-render",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/abhishekgahlot2/toon-json-render#readme",
+  "bugs": "https://github.com/abhishekgahlot2/toon-json-render/issues",
+  "keywords": ["toon", "json-render", "generative-ui", "llm", "token-efficient", "streaming"],
+  "scripts": {
+    "build": "tsc",
+    "prepack": "pnpm run build",
+    "dev": "tsc --watch",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@toon-format/toon": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0",
+    "vitest": "^3.0.0"
+  }
+}

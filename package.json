@@ -1,0 +1,25 @@
+{
+  "name": "toon-json-render",
+  "private": true,
+  "description": "TOON adapter for json-render",
+  "author": "abhishekgahlot2",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "test": "turbo run test",
+    "benchmark": "pnpm --filter @toon-json-render/benchmark run start",
+    "lint": "turbo run lint"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.0",
+    "typescript": "^5.8.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=18"
+  }
+}
