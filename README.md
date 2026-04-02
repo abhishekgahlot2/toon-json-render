@@ -201,6 +201,19 @@ pnpm build
 pnpm test
 ```
 
+## Related Work
+
+For a focused `TOON vs JSONL` benchmark around `json-render`, see
+[mateolafalce/benchmark-json-render](https://github.com/mateolafalce/benchmark-json-render).
+
+That repo is useful for:
+
+- benchmarking two implementations side by side
+- tracking tokens, cost, and latency together
+- running the same prompt corpus across both variants
+
+This project takes a broader comparison route by benchmarking canonical flat `json-render`, `TOON + json-render`, and `OpenUI` on the same scenario set.
+
 ## License
 
 MIT
