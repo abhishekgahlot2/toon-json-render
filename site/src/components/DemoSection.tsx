@@ -108,17 +108,35 @@ Rules: use top-level root/state/elements, type not component, child key referenc
           <p className="mb-3 text-sm text-default-400">
             Instant prompt-to-demo matching with curated examples. No API key required.
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="mb-3 rounded-lg border border-default-200 bg-default-50 px-3 py-3">
+            <div className="mb-1 text-[11px] font-medium uppercase tracking-wider text-default-400">
+              Selected Prompt
+            </div>
+            <p className="text-sm text-default-600">{demos[activeKey].prompt}</p>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
             {localPromptKeys.map((key) => (
-              <Chip
+              <button
                 key={key}
-                variant={activeKey === key ? "flat" : "bordered"}
-                color={activeKey === key ? "primary" : "default"}
-                className="cursor-pointer"
+                type="button"
                 onClick={() => onActiveKeyChange(key)}
+                className={`rounded-xl border px-3 py-3 text-left transition-colors ${
+                  activeKey === key
+                    ? "border-primary bg-primary/10"
+                    : "border-default-200 bg-content1 hover:bg-default-50"
+                }`}
               >
-                {demos[key].prompt}
-              </Chip>
+                <div
+                  className={`text-sm font-medium ${
+                    activeKey === key ? "text-primary" : "text-default-700"
+                  }`}
+                >
+                  {demos[key].label}
+                </div>
+                <div className="mt-1 line-clamp-3 text-xs text-default-400">
+                  {demos[key].prompt}
+                </div>
+              </button>
             ))}
           </div>
         </div>
