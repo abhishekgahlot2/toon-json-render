@@ -8,6 +8,23 @@ TOON adapter for [json-render](https://github.com/vercel-labs/json-render). Enco
 
 **[Live demos and benchmarks](https://abhishekgahlot2.github.io/toon-json-render/)**
 
+## Why this combo
+
+Teams evaluating model-generated UI usually end up in one of three places:
+
+- Raw `json-render`: explicit, inspectable, and JSON-native, but verbose for LLM output.
+- `OpenUI`: more compact, but it introduces a new language and authoring surface.
+- `TOON + json-render`: keeps the same flat `json-render` contract while reducing transport cost.
+
+`TOON + json-render` is the pragmatic middle path:
+
+- More efficient than raw JSON
+- Less disruptive than introducing a new DSL
+- Reversible back to canonical `json-render`
+- Easy to adopt incrementally in an existing `json-render` pipeline
+
+The goal is not to replace `json-render`. The goal is to keep `json-render` as the application contract while sending less text through the model.
+
 ## What this does
 
 json-render uses a flat JSON spec to describe UIs:
@@ -154,7 +171,13 @@ Current canonical head-to-head benchmark on Claude Sonnet 4 across 7 scenarios:
 - OpenUI: `3843` output tokens (`40.8%` fewer than JSON)
 - Validity: `7/7` for JSON, TOON, and OpenUI
 
-TOON is now reliably valid on the same flat `json-render` shape, but OpenUI still wins on raw compactness in this benchmark.
+Interpretation:
+
+- raw `json-render` is the easiest baseline to understand, but the most verbose
+- `OpenUI` wins on raw compactness
+- `TOON + json-render` keeps the canonical JSON-native spec while still cutting token cost materially
+
+So this project is best for teams that want a better compatibility-to-efficiency tradeoff, not for teams optimizing only for absolute minimum tokens.
 
 Run them yourself:
 
