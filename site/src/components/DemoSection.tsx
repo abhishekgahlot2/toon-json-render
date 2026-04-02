@@ -1,10 +1,11 @@
 import { useState, useMemo, useCallback } from "react";
-import { Card, CardBody, Tabs, Tab, ScrollShadow, Input, Button } from "@heroui/react";
+import { Card, CardBody, Tabs, Tab, ScrollShadow, Input, Button, Chip } from "@heroui/react";
 import { demos } from "../data/demos";
 import { SpecRenderer } from "./SpecRenderer";
 
 const demoKeys = Object.keys(demos);
 const CATALOG = "Stack,Card,Button,Input,TextArea,Select,Table,Tabs,TabPanel,Text,Heading,Image,Badge,Divider,BarChart,LineChart,Grid,Container,Form,List,ListItem";
+const localPromptKeys = ["login", "dashboard", "pricing", "charts"] as const;
 
 export default function DemoSection({
   activeKey,
@@ -99,6 +100,28 @@ Rules: use top-level root/state/elements, type not component, child key referenc
         <p className="text-sm text-center text-default-400 mb-6">
           {demoKeys.length} UI components. Click any to compare.
         </p>
+
+        <div className="mb-6 rounded-xl border border-default-200 px-4 py-4">
+          <div className="mb-2 text-xs font-medium uppercase tracking-wider text-default-400">
+            Local Prompt Demo
+          </div>
+          <p className="mb-3 text-sm text-default-400">
+            Instant prompt-to-demo matching with curated examples. No API key required.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {localPromptKeys.map((key) => (
+              <Chip
+                key={key}
+                variant={activeKey === key ? "flat" : "bordered"}
+                color={activeKey === key ? "primary" : "default"}
+                className="cursor-pointer"
+                onClick={() => onActiveKeyChange(key)}
+              >
+                {demos[key].prompt}
+              </Chip>
+            ))}
+          </div>
+        </div>
 
         <ScrollShadow orientation="horizontal" className="mb-4">
           <Tabs
