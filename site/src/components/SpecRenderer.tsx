@@ -752,8 +752,24 @@ function RenderNode({ spec }: { spec: Spec | string }) {
     /* ---- Table ---- */
 
     case "Table": {
-      const cols: string[] = p.columns || p.headers || [];
-      const rows: any[][] = p.rows || p.data || [];
+      const rawCols = Array.isArray(p.columns) ? p.columns : Array.isArray(p.headers) ? p.headers : [];
+      const rawRows = Array.isArray(p.rows) ? p.rows : Array.isArray(p.data) ? p.data : [];
+      const cols = rawCols.map((col: any, i: number) => {
+        if (typeof col === "string") return { key: col, label: col };
+        return {
+          key: col?.key || col?.id || `col-${i}`,
+          label: col?.title || col?.label || col?.key || `Column ${i + 1}`,
+        };
+      });
+
+      const rows = rawRows.map((row: any) => {
+        if (Array.isArray(row)) return row;
+        if (row && typeof row === "object") {
+          return cols.map((col) => row[col.key]);
+        }
+        return [row];
+      });
+
       if (!cols.length && !rows.length) {
         return (
           <div className="text-xs text-default-400 p-3 border border-default-200 rounded-lg text-center">
@@ -774,8 +790,8 @@ function RenderNode({ spec }: { spec: Spec | string }) {
           }}
         >
           <TableHeader>
-            {cols.map((col: string, i: number) => (
-              <TableColumn key={i}>{col}</TableColumn>
+            {cols.map((col, i: number) => (
+              <TableColumn key={col.key || i}>{col.label}</TableColumn>
             ))}
           </TableHeader>
           <TableBody>
