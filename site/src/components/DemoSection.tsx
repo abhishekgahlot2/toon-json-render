@@ -6,8 +6,13 @@ import { SpecRenderer } from "./SpecRenderer";
 const demoKeys = Object.keys(demos);
 const CATALOG = "Stack,Card,Button,Input,TextArea,Select,Table,Tabs,TabPanel,Text,Heading,Image,Badge,Divider,BarChart,LineChart,Grid,Container,Form,List,ListItem";
 
-export default function DemoSection() {
-  const [activeKey, setActiveKey] = useState(demoKeys[0]);
+export default function DemoSection({
+  activeKey,
+  onActiveKeyChange,
+}: {
+  activeKey: string;
+  onActiveKeyChange: (key: string) => void;
+}) {
   const [codeTab, setCodeTab] = useState<"json" | "toon">("toon");
   const [apiKey, setApiKey] = useState("");
   const [customPrompt, setCustomPrompt] = useState("");
@@ -54,7 +59,7 @@ elements:
     type: Button
     props:
       label: Go
-Rules: use top-level root/state/elements, type not component, child key references, and correct [N] counts. Output ONLY valid TOON.`;
+Rules: use top-level root/state/elements, type not component, child key references, correct [N] counts, short stable element ids, and omit obvious defaults. Prefer tabular arrays for arrays of objects. Output ONLY valid TOON.`;
     try {
       const [jR, tR] = await Promise.all([
         fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -85,7 +90,7 @@ Rules: use top-level root/state/elements, type not component, child key referenc
     [d],
   );
 
-  const handleDemoChange = useCallback((k: React.Key) => setActiveKey(k as string), []);
+  const handleDemoChange = useCallback((k: React.Key) => onActiveKeyChange(k as string), [onActiveKeyChange]);
 
   return (
     <section id="demo" className="px-4 py-16">

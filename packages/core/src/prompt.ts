@@ -205,6 +205,7 @@ Built-in actions (used in on handlers):
 - Indentation replaces braces/brackets.
 - Use minimal quoting (quote only when value contains special chars).
 - [N] declares the exact number of array items that follow.
+- Prefer tabular [N]{field1,field2}: form for arrays of objects whenever field shapes are regular.
 - Count array items carefully before writing [N].
 - Recount inline arrays, list arrays, and nested arrays before finishing the output.
 - If you write [3], exactly 3 inline values, 3 list items, or 3 tabular rows must follow.
@@ -225,6 +226,8 @@ ${todoToon}
 Array counting reminders:
 - children[3] must be followed by exactly 3 comma-separated key strings.
 - In state, todos[1]{text,done}: declares 1 tabular row with 2 fields.
+- Prefer short, stable element keys such as root, hdr, card1, btn1, row1 unless longer names are needed for clarity.
+- Omit props that are only restating obvious component defaults from the catalog or renderer.
 - Count the items first, then write the [N] header. Never guess.`;
   }
 

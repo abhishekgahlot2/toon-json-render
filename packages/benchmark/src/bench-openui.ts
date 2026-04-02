@@ -54,6 +54,7 @@ Output valid JSON in the current json-render flat spec:
   }
 }
 Key rules: flat element map (not nested tree), "type" not "component", children are string key references, include state + $bindState for inputs, on.press for buttons.
+Use short stable element ids (e.g. root, hdr, card1, btn1) and omit optional props/fields when they only restate defaults.
 Only use listed components. Output ONLY valid JSON, no markdown.`,
 
   toon: `You are a UI generation assistant. Available components: ${CATALOG.join(", ")}
@@ -116,6 +117,7 @@ Counting rules:
 - Do not use ad hoc '-' list items for object arrays when tabular [N]{...}: form fits.
 
 Key rules: flat element map (not nested tree), "type" not "component", children are string key references, include state + $bindState for inputs, on.press for buttons.
+Use short stable element ids (e.g. root, hdr, card1, btn1) and omit optional props/fields when they only restate defaults.
 Only use listed components. Output ONLY valid TOON, no markdown.`,
 
   openui: `You are a UI generation assistant. Available components: ${CATALOG.join(", ")}

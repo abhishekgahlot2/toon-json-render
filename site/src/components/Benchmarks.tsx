@@ -10,13 +10,13 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "table", JSON: 294, TOON: 166, OpenUI: 127 },
-  { name: "chart", JSON: 209, TOON: 148, OpenUI: 116 },
-  { name: "form", JSON: 614, TOON: 351, OpenUI: 198 },
-  { name: "dashboard", JSON: 935, TOON: 729, OpenUI: 620 },
-  { name: "pricing", JSON: 1475, TOON: 1349, OpenUI: 1076 },
-  { name: "settings", JSON: 1631, TOON: 1159, OpenUI: 1061 },
-  { name: "e-commerce", JSON: 1333, TOON: 843, OpenUI: 645 },
+  { name: "table", JSON: 282, TOON: 132, OpenUI: 120 },
+  { name: "chart", JSON: 194, TOON: 147, OpenUI: 102 },
+  { name: "form", JSON: 607, TOON: 354, OpenUI: 225 },
+  { name: "dashboard", JSON: 635, TOON: 801, OpenUI: 505 },
+  { name: "pricing", JSON: 1174, TOON: 871, OpenUI: 1232 },
+  { name: "settings", JSON: 1533, TOON: 1256, OpenUI: 1025 },
+  { name: "e-commerce", JSON: 987, TOON: 612, OpenUI: 706 },
 ];
 
 const COLORS = {
@@ -26,10 +26,10 @@ const COLORS = {
 } as const;
 
 const stats = [
-  { value: "27%", label: "fewer tokens vs JSON", color: "success" as const, icon: "↓" },
+  { value: "23%", label: "fewer tokens vs JSON", color: "success" as const, icon: "↓" },
   { value: "7/7", label: "TOON validity", color: "primary" as const, icon: "✓" },
-  { value: "24", label: "demo scenarios", color: "success" as const, icon: "#" },
-  { value: "MIT", label: "license", color: "warning" as const, icon: "§" },
+  { value: "6.6%", label: "off OpenUI", color: "success" as const, icon: "≈" },
+  { value: "24", label: "demo scenarios", color: "warning" as const, icon: "#" },
 ];
 
 function CustomTooltip({
@@ -77,7 +77,7 @@ export default function Benchmarks() {
       <div className="mx-auto max-w-6xl">
         <h2 className="mb-1 text-center text-2xl font-bold">Benchmarks</h2>
         <p className="mb-8 text-center text-sm text-default-400">
-          Claude Sonnet 4 across 7 canonical json-render scenarios
+          Claude Sonnet 4 across 7 canonical json-render scenarios. Same flat spec, valid output, and now within 6.6% of OpenUI on output tokens.
         </p>
 
         {/* Stat cards */}

@@ -11,6 +11,7 @@ export {
   getByPath,
   evaluateVisible,
   resolveValue,
+  normalizeFlatSpec,
   toRenderableTree,
   isFlatSpec,
   isTreeSpec,

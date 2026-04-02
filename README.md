@@ -88,6 +88,42 @@ We target the current flat `json-render` shape:
 - `repeat` for iterating over state arrays
 - Built-in actions: `setState`, `pushState`, `removeState`, `validateForm`
 
+## Capability Matrix
+
+Current support across the main `json-render` surfaces:
+
+| Surface | Support | Notes |
+| --- | --- | --- |
+| `json` | Full | Primary target. Flat `root / state / elements` is the main adapter lane. |
+| `nested` | Partial | Tree-like inputs can be normalized, but this repo is not a first-class nested authoring surface. |
+| `stream` | Partial | Supports TOON streaming and incremental decode, but not full upstream `SpecStream` JSONL parity. |
+| `catalog` | Partial | Supports catalog-aware prompt generation, but not full upstream schema/catalog API parity. |
+
+Official references:
+
+- [Docs overview](https://json-render.dev/docs)
+- [Core API](https://json-render.dev/docs/api/core)
+- [Examples gallery](https://json-render.dev/examples)
+
+## Adapter Design
+
+This project is intentionally an adapter, not a fork of the `json-render` programming model.
+
+Safe optimization lanes:
+
+- Better prompting
+- Better omission of defaults
+- Better array and table compaction
+- Shorter generated element IDs
+- Optional normalization helpers that decode back to canonical flat `json-render`
+
+Design constraints:
+
+- `json-render` remains the canonical UI contract
+- TOON remains the reversible transport layer
+- Adapter-level normalization should be additive, not a new DSL
+- If `json-render`, TOON, or both evolve, clients should still receive canonical flat `json-render` data
+
 ## Install
 
 ```sh
@@ -166,16 +202,17 @@ Falls back to JSON parsing if all four fail.
 
 Current canonical head-to-head benchmark on Claude Sonnet 4 across 7 scenarios:
 
-- JSON: `6491` output tokens
-- TOON: `4745` output tokens (`26.9%` fewer than JSON)
-- OpenUI: `3843` output tokens (`40.8%` fewer than JSON)
+- JSON: `5412` output tokens
+- TOON: `4173` output tokens (`22.9%` fewer than JSON)
+- OpenUI: `3915` output tokens (`27.7%` fewer than JSON)
 - Validity: `7/7` for JSON, TOON, and OpenUI
 
 Interpretation:
 
 - raw `json-render` is the easiest baseline to understand, but the most verbose
-- `OpenUI` wins on raw compactness
+- `OpenUI` is still smaller overall, but the current canonical TOON run is now within `6.6%`
 - `TOON + json-render` keeps the canonical JSON-native spec while still cutting token cost materially
+- in this benchmark, TOON beats OpenUI on some scenarios (`pricing-page`, `e-commerce-product`) while staying fully valid
 
 So this project is best for teams that want a better compatibility-to-efficiency tradeoff, not for teams optimizing only for absolute minimum tokens.
 
@@ -192,6 +229,13 @@ pnpm --filter @toon-json-render/benchmark run bench:opt        # 4-way with comp
 pnpm --filter @toon-json-render/benchmark run bench:complex    # 10 complex UI scenarios
 pnpm --filter @toon-json-render/benchmark run bench:real       # 12 production UI scenarios
 ```
+
+## Live Examples
+
+This landing page ships a curated TOON demo set. For the broader upstream example gallery and live demos, see:
+
+- [json-render examples](https://json-render.dev/examples)
+- [json-render docs](https://json-render.dev/docs)
 
 ## Development
 
